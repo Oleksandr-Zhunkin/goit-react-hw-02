@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Section from "./components/Section/Section";
 import Container from "./components/Container/Container";
@@ -14,16 +14,38 @@ const defaultOptions = {
 };
 
 const App = () => {
-  const [options, setOptions] = useState(defaultOptions);
+  const [options, setOptions] = useState(() => {
+    const options = JSON.parse(window.localStorage.getItem("key_statistics"));
+
+    const totalValues = Object.values(options).reduce(
+      (acc, value) => acc + value,
+      0
+    );
+    if (totalValues > 0) {
+      return options;
+    }
+    return defaultOptions;
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem("key_statistics", JSON.stringify(options));
+  }, [options]);
 
   const updateFeedback = (feedbackType) => {
-    setOptions({ ...options, [feedbackType]: options[feedbackType] + 1 });
+    if (feedbackType !== "reset") {
+      setOptions({ ...options, [feedbackType]: options[feedbackType] + 1 });
+    } else {
+      setOptions(defaultOptions);
+    }
   };
 
   const totalFeedback = Object.values(options).reduce(
     (acc, value) => acc + value,
     0
   );
+
+  const positiveFeedback =
+    100 - Math.round((options.bad / totalFeedback) * 100);
 
   return (
     <>
@@ -39,7 +61,13 @@ const App = () => {
             updateFeedback={updateFeedback}
           />
           {(totalFeedback > 0 && (
-            <Feedback points={Object.entries(options)} />
+            <Feedback
+              points={[
+                ...Object.entries(options),
+                ["total", totalFeedback],
+                ["positive", positiveFeedback + "%"],
+              ]}
+            />
           )) || <Notification />}
         </Container>
       </Section>
