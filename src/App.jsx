@@ -21,11 +21,14 @@ const App = () => {
       (acc, value) => acc + value,
       0
     );
+
     if (totalValues > 0) {
       return options;
     }
     return defaultOptions;
   });
+
+  const [widthStyle, setWidthStyle] = useState("0%");
 
   useEffect(() => {
     window.localStorage.setItem("key_statistics", JSON.stringify(options));
@@ -47,6 +50,11 @@ const App = () => {
   const positiveFeedback =
     100 - Math.round((options.bad / totalFeedback) * 100);
 
+  useEffect(() => {
+    const newWidth = `${positiveFeedback}%`;
+    setWidthStyle(newWidth);
+  }, [positiveFeedback]);
+
   return (
     <>
       <Section>
@@ -67,6 +75,7 @@ const App = () => {
                 ["total", totalFeedback],
                 ["positive", positiveFeedback + "%"],
               ]}
+              widthStyle={widthStyle}
             />
           )) || <Notification />}
         </Container>

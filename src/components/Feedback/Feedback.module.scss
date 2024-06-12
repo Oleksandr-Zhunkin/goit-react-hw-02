@@ -1,0 +1,28 @@
+.list {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 100px;
+  list-style: none;
+}
+.descr {
+  padding: 10px 20px;
+  background-color: lightseagreen;
+  border-radius: 10px;
+}
+.good {
+  background-color: #68e39f;
+}
+.bad {
+  background-color: #eba394;
+}
+.neutral {
+  background-color: #e3f0ae;
+}
+.total {
+  background-color: #a0deee;
+}
+.positive {
+  background-color: #b3dc3f;
+}

@@ -1,3 +1,5 @@
 .section {
   padding: 50px 0;
+  background-color: lightslategray;
+  height: 100vh;
 }
