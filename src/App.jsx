@@ -17,14 +17,21 @@ const App = () => {
   const [options, setOptions] = useState(() => {
     const options = JSON.parse(window.localStorage.getItem("key_statistics"));
 
-    const totalValues = Object.values(options).reduce(
-      (acc, value) => acc + value,
-      0
-    );
+    if (options) {
+      try {
+        const totalValues = Object.values(options).reduce(
+          (acc, value) => acc + value,
+          0
+        );
 
-    if (totalValues > 0) {
-      return options;
+        if (totalValues > 0) {
+          return options;
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
+
     return defaultOptions;
   });
 
