@@ -54,8 +54,9 @@ const App = () => {
     0
   );
 
-  const positiveFeedback =
-    100 - Math.round((options.bad / totalFeedback) * 100);
+  const positiveFeedback = Math.round(
+    ((options.good + options.neutral) / totalFeedback) * 100
+  );
 
   useEffect(() => {
     const newWidth = `${positiveFeedback}%`;
