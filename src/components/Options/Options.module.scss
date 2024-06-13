@@ -5,12 +5,15 @@
   gap: 20px;
   margin-top: 30px;
   margin-bottom: 30px;
-  .btn {
-    padding: 10px 30px;
-    border-radius: 10px;
-    border: none;
-    background-color: lightseagreen;
-    cursor: pointer;
-    color: white;
-  }
+}
+.btn {
+  padding: 10px 30px;
+  border-radius: 10px;
+  border: none;
+  background-color: lightseagreen;
+  cursor: pointer;
+  color: white;
+}
+li:last-child .btn {
+  background-color: black;
 }
